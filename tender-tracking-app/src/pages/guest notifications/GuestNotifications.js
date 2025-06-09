@@ -9,7 +9,8 @@ import Logo from "../../components/logo.js";
 function GuestNotifications() {
   const [notifications, setNotifications] = useState([]);
   const [latestNotificationId, setLatestNotificationId] = useState(null);
-  const [portName, setPortName] = useState(""); // <-- Add this line
+  const [portName, setPortName] = useState("");
+  const [lastTender, setLastTender] = useState("");
   const latestIdRef = useRef(null);
   const audioRef = useRef(null);
   const [soundEnabled, setIsSoundEnabled] = useState(false);
@@ -40,6 +41,8 @@ function GuestNotifications() {
         if (activePortDayDoc) {
           setPortName(activePortDayDoc.data().name || "");
           setAvgTime(activePortDayDoc.data().avgTime || 0);
+          setLastTender(activePortDayDoc.data().lastTenderTime || "TBA");
+
 
           // Unsubscribe from previous notifications listener if any
           if (unsubscribeNotifications) unsubscribeNotifications();
@@ -108,6 +111,7 @@ function GuestNotifications() {
       <Logo enableSound={enableSound} soundEnabled={soundEnabled} />
       <h1>TENDER STATUS NOTIFICATIONS</h1>
       <h2>{portName ? portName : "Waiting for Port Information"}</h2>
+      <h3>{portName && `Last Tender from shoreside: ${lastTender}`}</h3>
       <audio
         ref={audioRef}
         src={notificationSound}

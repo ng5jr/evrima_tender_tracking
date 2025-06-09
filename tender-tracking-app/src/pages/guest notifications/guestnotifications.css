@@ -48,6 +48,17 @@ body {
   font-size: 20px;
 }
 
+.guest-notifications h3 {
+  font-family: 'Proxima Nova', 'Helvetica Neue', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 200;
+  line-height: 1.2em;
+  letter-spacing: 0.05em;
+  color: white;
+  margin: 0;
+  font-size: 15px;
+}
 
 .notification-list {
 
@@ -178,6 +189,15 @@ body {
     letter-spacing: 0.05em;
 
     font-size: 15px;
+  }
+
+  .guest-notifications h2 {
+
+    font-weight: 200;
+    line-height: 1.2em;
+    letter-spacing: 0.05em;
+
+    font-size: 10px;
   }
 
   .notification-item {

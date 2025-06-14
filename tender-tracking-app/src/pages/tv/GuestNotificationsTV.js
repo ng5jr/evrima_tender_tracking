@@ -19,7 +19,9 @@ function GuestNotificationsTV() {
     const tvLayoutRef = useRef(null);
     const audioRef = useRef(null);
     const [portName, setPortName] = useState("");
-
+    const [lastTender, setLastTender] = useState("");
+    const [avgTime, setAvgTime] = useState(0);
+    const listRef = useRef(null); // Add this ref
     // const [soundEnabled, setIsSoundEnabled] = useState(false);
 
     // useEffect(() => {
@@ -84,7 +86,8 @@ function GuestNotificationsTV() {
 
                 if (activePortDayDoc) {
                     setPortName(activePortDayDoc.data().name || "");
-
+                    setAvgTime(activePortDayDoc.data().avgTime || 0);
+                    setLastTender(activePortDayDoc.data().lastTenderTime || "TBA");
                     // Unsubscribe from previous notifications listener if any
                     if (unsubscribeNotifications) unsubscribeNotifications();
 
@@ -231,6 +234,7 @@ function GuestNotificationsTV() {
                 <Logo tv={'tv'} />
                 <h1>TENDER STATUS NOTIFICATIONS</h1>
                 <h2>{portName ? portName : "Waiting for Port Information"}</h2>
+                <h3>{portName && `Last Tender from shoreside: ${lastTender}`}</h3>
                 <div onClick={toggleFullscreen} className="screen-toggle">
                     {!isFullscreen ? (
                         <img src={FullScren} alt="fullscreen" className="screen-icon" />
@@ -244,30 +248,59 @@ function GuestNotificationsTV() {
                     src={notificationSound}
                     style={{ display: "none" }}
                 />
-                <ul className="notification-list">
-                    {notifications.map((notification) => (
-                        <li
-                            key={notification.id}
-                            className={`notification-item ${notification.direction === "SHORESIDE"
-                                ? "shoreside-notification"
-                                : notification.direction === "SHIPSIDE"
-                                    ? "shipside-notification"
-                                    : "custom-notification"
-                                } ${notification.id === latestNotificationId
-                                    ? "blinking-notification"
-                                    : ""
-                                }`}
-                        >
-                            <p className="notification-message">{notification.message}</p>
-                            <p className="notification-time">
-                                {notification.timestamp?.toDate()?.toLocaleString(undefined, {
-                                    hour: "numeric",
-                                    minute: "numeric",
-                                    hour12: true,
-                                })}
-                            </p>
-                        </li>
-                    ))}
+                <ul className="notification-list" ref={listRef}>
+                    {notifications.map((notification) => {
+                        // Calculate arrival time
+                        let arrivalTime = "";
+                        if (notification.timestamp && avgTime) {
+                            const arrivalDate = new Date(notification.timestamp.toDate().getTime() + avgTime * 60000);
+                            arrivalTime = arrivalDate.toLocaleString(undefined, {
+                                hour: "numeric",
+                                minute: "numeric",
+                                hour12: true,
+                            });
+                        }
+
+                        let displayMessage = "";
+
+                        if (notification.direction === "SHORESIDE" || notification.direction === "SHIPSIDE") {
+                            if (notification.action === "ARRIVED") {
+                                displayMessage = notification.message;
+                            } else if (notification.action === "DEPARTED") {
+                                displayMessage = `${notification.message} Estimated time of arrival: ${arrivalTime}.`;
+                            } else {
+                                displayMessage = `${notification.message} Estimated time of arrival: ${arrivalTime}.`;
+                            }
+                        } else {
+                            displayMessage = notification.message;
+                        }
+
+                        return (
+                            <li
+                                key={notification.id}
+                                className={`notification-item ${notification.direction === "SHORESIDE"
+                                    ? "shoreside-notification"
+                                    : notification.direction === "SHIPSIDE"
+                                        ? "shipside-notification"
+                                        : "custom-notification"
+                                    } ${notification.id === latestNotificationId
+                                        ? "blinking-notification"
+                                        : ""
+                                    }`}
+                            >
+                                <p className="notification-message">
+                                    {displayMessage}
+                                </p>
+                                <p className="notification-time">
+                                    {notification.timestamp?.toDate()?.toLocaleTimeString([], {
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                        hour12: true
+                                    })}
+                                </p>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         </div>

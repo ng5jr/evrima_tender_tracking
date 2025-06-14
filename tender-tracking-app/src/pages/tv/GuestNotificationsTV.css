@@ -214,3 +214,15 @@ img.image-cover {
 .image-section h2 {
     margin-bottom: 20px;
 }
+
+.guest-notificationstv h3 {
+    font-family: 'Proxima Nova', 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 200;
+    line-height: 1.2em;
+    letter-spacing: 0.05em;
+    color: white;
+    margin: 0;
+    font-size: 15px;
+}

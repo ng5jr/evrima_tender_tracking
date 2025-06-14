@@ -162,10 +162,10 @@ function GuestNotifications() {
                 {displayMessage}
               </p>
               <p className="notification-time">
-                {notification.timestamp?.toDate()?.toLocaleString(undefined, {
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: true,
+                {notification.timestamp?.toDate()?.toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: true
                 })}
               </p>
             </li>

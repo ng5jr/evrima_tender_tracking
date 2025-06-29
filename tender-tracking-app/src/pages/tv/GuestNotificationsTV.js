@@ -106,6 +106,7 @@ function GuestNotificationsTV() {
                                 ...doc.data(),
                             }));
                             setNotifications(notificationsData);
+                            console.log("Notifications data:", notificationsData);
 
                             if (
                                 notificationsData.length > 0 &&
@@ -257,7 +258,7 @@ function GuestNotificationsTV() {
                             arrivalTime = arrivalDate.toLocaleString(undefined, {
                                 hour: "numeric",
                                 minute: "numeric",
-                                hour12: true,
+                                hour12: false,
                             });
                         }
 
@@ -295,7 +296,7 @@ function GuestNotificationsTV() {
                                     {notification.timestamp?.toDate()?.toLocaleTimeString([], {
                                         hour: '2-digit',
                                         minute: '2-digit',
-                                        hour12: true
+                                        hour12: false
                                     })}
                                 </p>
                             </li>

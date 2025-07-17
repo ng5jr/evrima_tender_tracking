@@ -251,31 +251,19 @@ function GuestNotificationsTV() {
                 />
                 <ul className="notification-list" ref={listRef}>
                     {notifications.map((notification) => {
-                        // Calculate arrival time
-                        let arrivalTime = "";
-                        if (notification.timestamp && avgTime) {
-                            const arrivalDate = new Date(notification.timestamp.toDate().getTime() + avgTime * 60000);
-                            arrivalTime = arrivalDate.toLocaleString(undefined, {
-                                hour: "numeric",
-                                minute: "numeric",
-                                hour12: false,
-                            });
+                        let displayTime = "";
+                        if (notification.timestamp) {
+                            const dateObj = typeof notification.timestamp.toDate === "function"
+                                ? notification.timestamp.toDate()
+                                : new Date(notification.timestamp);
+                            displayTime = !isNaN(dateObj)
+                                ? dateObj.toLocaleString(undefined, {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    hour12: false,
+                                })
+                                : "";
                         }
-
-                        let displayMessage = "";
-
-                        if (notification.direction === "SHORESIDE" || notification.direction === "SHIPSIDE") {
-                            if (notification.action === "ARRIVED") {
-                                displayMessage = notification.message;
-                            } else if (notification.action === "DEPARTED") {
-                                displayMessage = `${notification.message} Estimated time of arrival: ${arrivalTime}.`;
-                            } else {
-                                displayMessage = `${notification.message} Estimated time of arrival: ${arrivalTime}.`;
-                            }
-                        } else {
-                            displayMessage = notification.message;
-                        }
-
                         return (
                             <li
                                 key={notification.id}
@@ -289,15 +277,9 @@ function GuestNotificationsTV() {
                                         : ""
                                     }`}
                             >
-                                <p className="notification-message">
-                                    {displayMessage}
-                                </p>
+                                <p className="notification-message">{notification.message}</p>
                                 <p className="notification-time">
-                                    {notification.timestamp?.toDate()?.toLocaleTimeString([], {
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                        hour12: false
-                                    })}
+                                    {displayTime}
                                 </p>
                             </li>
                         );

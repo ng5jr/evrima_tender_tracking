@@ -123,12 +123,15 @@ function GuestNotifications() {
           // Calculate arrival time
           let arrivalTime = "";
           if (notification.timestamp && avgTime) {
-            const arrivalDate = new Date(notification.timestamp.toDate().getTime() + avgTime * 60000);
-            arrivalTime = arrivalDate.toLocaleString(undefined, {
-              hour: "numeric",
-              minute: "numeric",
-              hour12: false,
-            });
+            const arrivalDate = new Date(notification.timestamp);
+            if (!isNaN(arrivalDate)) {
+              const arrivalWithAvg = new Date(arrivalDate.getTime() + avgTime * 60000);
+              arrivalTime = arrivalWithAvg.toLocaleString(undefined, {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+              });
+            }
           }
 
           let displayMessage = "";
@@ -143,6 +146,18 @@ function GuestNotifications() {
             }
           } else {
             displayMessage = notification.message;
+          }
+
+          let displayTime;
+          if (notification.timestamp) {
+            const dateObj = new Date(notification.timestamp);
+            displayTime = !isNaN(dateObj)
+              ? dateObj.toLocaleString(undefined, {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+              })
+              : "";
           }
 
           return (
@@ -162,11 +177,7 @@ function GuestNotifications() {
                 {displayMessage}
               </p>
               <p className="notification-time">
-                {notification.timestamp?.toDate()?.toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  hour12: false
-                })}
+                {displayTime}
               </p>
             </li>
           );

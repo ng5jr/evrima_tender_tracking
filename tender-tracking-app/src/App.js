@@ -6,12 +6,13 @@ import Rating from "./pages/rating page/rating";
 import GuestNotificationsTV from "./pages/tv/GuestNotificationsTV";
 import "leaflet/dist/leaflet.css";
 import { Analytics } from "@vercel/analytics/react"
-
+import FeedbackPrompt from "./components/FeedbackPrompt";
 
 function App() {
   return (
     <BrowserRouter>
       <Analytics />
+      <FeedbackPrompt />
       <Routes>
         <Route path="/" element={<GuestNotifications />} />
         <Route path="/tv" element={<GuestNotificationsTV />} />

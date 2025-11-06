@@ -118,7 +118,7 @@ export default function FeedbackPrompt() {
     const goToFeedback = () => {
         setSnooze(7); // prevent immediate re-show
         setVisible(false);
-        navigate("/feedback");
+        navigate("/feedback?intent=improve"); // << pass context for rating page
     };
 
     const closeOnly = () => {
@@ -173,7 +173,7 @@ export default function FeedbackPrompt() {
                 {mode === "cta" && (
                     <div className="feedback-toast__actions">
                         <button className="feedback-btn feedback-btn--primary" onClick={goToFeedback}>
-                            LEAVE FEEDBACK
+                            LEAVE COMMENT
                         </button>
                     </div>
                 )}

@@ -1,20 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebaseconfig"; // Assuming you have Firebase configured
+import { db } from "../../firebaseconfig";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import "./rating.css"; // Create this CSS file for styling
+import { useNavigate, useLocation } from "react-router-dom"; // changed: add useLocation
+import "./rating.css";
 import Logo from "../../components/logo";
 import { Link } from "react-router-dom";
-import back from "../../assets/back.png"; // Import the back icon
+import back from "../../assets/back.png";
 
 function Rating() {
   const [websiteRating, setWebsiteRating] = useState(0);
   const [tenderRating, setTenderRating] = useState(0);
   const [comments, setComments] = useState("");
   const [submissionStatus, setSubmissionStatus] = useState("");
-  const [redirectTimer, setRedirectTimer] = useState(0); // State for the timer
+  const [redirectTimer, setRedirectTimer] = useState(0);
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+  const location = useLocation(); // NEW
+  const [intent, setIntent] = useState("default"); // NEW
+
+  // NEW: read query param to customize copy when coming from thumbs-down
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const v = params.get("intent");
+    if (v) setIntent(v);
+  }, [location.search]);
+
+  const headingText =
+    intent === "improve" ? "GUEST FEEDBACK" : "GUEST FEEDBACK";
+  const commentPlaceholder =
+    intent === "improve" ? "What could we do better next time?" : "Would you like to leave us a comment?";
 
   const handleWebsiteRatingClick = (selectedRating) => {
     setWebsiteRating(selectedRating);
@@ -30,19 +44,18 @@ function Rating() {
 
   const handleSubmitFeedback = async () => {
     if (websiteRating === 0 || tenderRating === 0) {
-      setSubmissionStatus(
-        "Please rate both the website and the tender service."
-      );
+      setSubmissionStatus("Please rate both the website and the tender service.");
       return;
     }
 
     try {
-      const feedbackCollectionRef = collection(db, "guestFeedback"); // New collection name
+      const feedbackCollectionRef = collection(db, "guestFeedback");
       await addDoc(feedbackCollectionRef, {
         websiteRating: websiteRating,
         tenderRating: tenderRating,
         comments: comments,
         timestamp: serverTimestamp(),
+        source: intent === "improve" ? "prompt-thumbs-down" : "direct", // optional trace
       });
 
       setWebsiteRating(0);
@@ -51,7 +64,7 @@ function Rating() {
       setSubmissionStatus(
         "Thank you for your feedback! You will be redirected in 5 seconds..."
       );
-      setRedirectTimer(5); // Start the timer
+      setRedirectTimer(5);
     } catch (error) {
       console.error("Error submitting feedback: ", error);
       setSubmissionStatus("Failed to submit feedback. Please try again.");
@@ -63,20 +76,17 @@ function Rating() {
       const timer = setInterval(() => {
         setRedirectTimer((prevTimer) => prevTimer - 1);
       }, 1000);
-
-      return () => clearInterval(timer); // Cleanup the interval
+      return () => clearInterval(timer);
     }
 
     if (redirectTimer === 0 && submissionStatus.startsWith("Thank you")) {
-      navigate("/"); // Redirect to the main page
+      navigate("/");
     }
-  }, [redirectTimer, navigate, submissionStatus]); // Dependencies: redirectTimer, navigate, submissionStatus
+  }, [redirectTimer, navigate, submissionStatus]);
 
   useEffect(() => {
-    // Prevent body from scrolling
     document.body.style.overflow = "hidden";
     return () => {
-      // Restore body scroll when leaving the page
       document.body.style.overflow = "";
     };
   }, []);
@@ -84,7 +94,10 @@ function Rating() {
   return (
     <div className="feedback-website">
       <Logo page="no-sound" />
-      <h1>GUEST FEEDBACK</h1>
+      <h1>{headingText}</h1>
+      {intent === "improve" ? (
+        <p className="context-note">We’re sorry the tender experience did not meet your expectations. Your feedback helps us improve.</p>
+      ) : <p className="context-note">Thank you for taking a moment to share your feedback with us, it truly helps us refine your journey.</p>}
       <div className="sections">
         <div className="rating-section">
           <h3>Rate our notification service:</h3>
@@ -99,7 +112,6 @@ function Rating() {
               </span>
             ))}
           </div>
-          {/* {websiteRating > 0 && <p>You rated the website {websiteRating} stars.</p>} */}
         </div>
         <div className="rating-section">
           <h3>Rate your tender ride:</h3>
@@ -114,14 +126,13 @@ function Rating() {
               </span>
             ))}
           </div>
-          {/* {tenderRating > 0 && <p>You rated the tender service {tenderRating} stars.</p>} */}
         </div>
         <div className="comment-section">
           <h3>Comments:</h3>
           <textarea
             value={comments}
             onChange={handleCommentsChange}
-            placeholder="Would you like to leave us a comment?"
+            placeholder={commentPlaceholder}
             rows="4"
           />
         </div>

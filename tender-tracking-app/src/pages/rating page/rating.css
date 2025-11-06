@@ -41,6 +41,14 @@
   flex-direction: column;
 }
 
+.context-note {
+  text-align: center;
+  color: white;
+  margin-top: -5px;
+
+  margin-bottom: 0px;
+}
+
 .rating-section h3 {
   font-family: 'Proxima Nova', 'Helvetica Neue', sans-serif;
   text-transform: uppercase;

@@ -20,7 +20,7 @@
     background: var(--rc-black);
     color: var(--rc-white);
     border: 1px solid var(--rc-border);
-    border-radius: 14px;
+    border-radius: 8px;
     padding: 14px 16px;
     padding-bottom: calc(14px + env(safe-area-inset-bottom));
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
@@ -29,9 +29,9 @@
     grid-template-areas:
         "content close"
         "actions actions";
-    gap: 12px 8px;
+
     z-index: 9999;
-    animation: feedback-toast-in 220ms ease-out;
+    animation: feedback-toast-in 220ms ease-in-out;
 }
 
 @keyframes feedback-toast-in {
@@ -63,7 +63,9 @@
     color: var(--rc-text-muted);
     font-size: 20px;
     cursor: pointer;
-    height: 10px;
+    height: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 .feedback-toast__close:hover {
@@ -71,8 +73,8 @@
 }
 
 .feedback-toast__title {
-    font-weight: 600;
-    margin-bottom: 4px;
+    font-weight: 400;
+    margin-bottom: 10px;
     color: var(--rc-white);
 }
 
@@ -88,9 +90,10 @@
     background: transparent;
     color: var(--rc-white);
     padding: 6px 10px;
-    border-radius: 10px;
-    font-weight: 500;
+    border-radius: 4px;
+    font-weight: 400;
     cursor: pointer;
+    font-size: 12px;
 }
 
 .feedback-btn:hover {
@@ -99,8 +102,8 @@
 
 .feedback-btn--primary {
     border: none;
-    background: var(--rc-memorable-blue);
-    color: var(--rc-white);
+    background: #c7ddf3;
+    color: var(--rc-black);
 }
 
 .feedback-btn--primary:hover {

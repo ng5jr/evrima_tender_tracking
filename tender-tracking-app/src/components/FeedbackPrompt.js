@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./FeedbackPrompt.css";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebaseconfig"; // use same db as rating.js
 
 // LocalStorage keys
 const LS_COMPLETED = "feedbackCompleted"; // 'true' once feedback submitted
@@ -35,9 +37,9 @@ const shouldSuppress = (pathname) => {
 };
 
 const randomDelayMs = () => {
-    // Between 30s and 120s
-    const min = 30_000;
-    const max = 90_000;
+    // Between 10s and 15s
+    const min = 15_000;
+    const max = 45_000;
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
@@ -48,6 +50,9 @@ export default function FeedbackPrompt() {
     const [visible, setVisible] = useState(false);
     const [hasTriggered, setHasTriggered] = useState(false);
     const timeoutRef = useRef(null);
+
+    // UI mode: "prompt" | "cta" | "thanks"
+    const [mode, setMode] = useState("prompt");
 
     // Mobile-only visibility
     const [isMobile, setIsMobile] = useState(() => {
@@ -111,35 +116,75 @@ export default function FeedbackPrompt() {
     if (suppressed || !visible) return null;
 
     const goToFeedback = () => {
-        // Optionally, mark a short snooze so it won’t immediately re-show if they bounce back
-        setSnooze(7); // snooze for 7 days once they click through
+        setSnooze(7); // prevent immediate re-show
         setVisible(false);
         navigate("/feedback");
-    };
-
-    const dismiss = () => {
-        setSnooze(1); // Not now: snooze for 1 day
-        setVisible(false);
     };
 
     const closeOnly = () => {
         setVisible(false); // Close without snooze
     };
 
+    async function submitQuickFiveStar() {
+        // Write a quick 5-star entry to the same collection used by rating.js
+        // If you prefer only service rating, change websiteRating to null or remove it.
+        const feedbackCollectionRef = collection(db, "guestFeedback");
+        await addDoc(feedbackCollectionRef, {
+            websiteRating: 5,
+            tenderRating: 5,
+            comments: "",
+            timestamp: serverTimestamp(),
+        });
+    }
+
+    const onThumbsUp = async () => {
+        try {
+            await submitQuickFiveStar();
+            localStorage.setItem(LS_COMPLETED, "true"); // do not show again
+            setMode("thanks");
+            setTimeout(() => setVisible(false), 2500);
+        } catch (e) {
+            // Fallback: route to full feedback
+            navigate("/feedback");
+        }
+    };
+
+    const onThumbsDown = () => {
+        // Reveal CTA; don't mark as completed so they can still leave feedback
+        setMode("cta");
+    };
+
     return (
         <div className="feedback-toast" role="dialog" aria-live="polite" aria-label="Feedback prompt">
             <div className="feedback-toast__content">
-                <div className="feedback-toast__title">Got a minute?</div>
-                <div className="feedback-toast__text">Would you like to leave quick feedback to help us improve?</div>
+                <div className="feedback-toast__title">How was your tender experience?</div>
+
+                {mode === "prompt" && (
+                    <div className="feedback-toast__actions" role="group" aria-label="Quick rating">
+                        <button className="feedback-btn" onClick={onThumbsUp} aria-label="Thumbs up (5 stars)" title="Great (5 stars)">
+                            👍 Good
+                        </button>
+                        <button className="feedback-btn" onClick={onThumbsDown} aria-label="Thumbs down" title="Not great">
+                            👎 Could be improved
+                        </button>
+                    </div>
+                )}
+
+                {mode === "cta" && (
+                    <div className="feedback-toast__actions">
+                        <button className="feedback-btn feedback-btn--primary" onClick={goToFeedback}>
+                            LEAVE FEEDBACK
+                        </button>
+                    </div>
+                )}
+
+                {mode === "thanks" && (
+                    <div className="feedback-toast__text" aria-live="polite">
+                        Thank you. We appreciate you taking a moment to share your positive experience!
+                    </div>
+                )}
             </div>
-            <div className="feedback-toast__actions">
-                <button className="feedback-btn feedback-btn--primary" onClick={goToFeedback}>
-                    Leave feedback
-                </button>
-                <button className="feedback-btn" onClick={dismiss} aria-label="Not now">
-                    Not now
-                </button>
-            </div>
+
             <button className="feedback-toast__close" onClick={closeOnly} aria-label="Close">
                 ×
             </button>

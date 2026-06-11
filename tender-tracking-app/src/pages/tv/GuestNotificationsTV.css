@@ -1,159 +1,154 @@
 /* GuestNotifications.css - Mobile Only */
 body {
-    box-sizing: border-box;
-    background-color: #1c1c1c;
-    margin: 0;
+  box-sizing: border-box;
 
+  margin: 0;
 }
 
 .guest-notificationstv {
-    font-family: 'Big Caslon', 'Times New Roman', serif;
-    margin: 0;
-    /* Reduced margin for mobile */
-    padding: 45px 35px;
-    /* Reduced padding for mobile */
-    border: 1px solid #e6e6e6;
-    border-radius: 0;
-    /* Slightly smaller radius for mobile */
-    background-color: #222;
-    color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    /* Less pronounced shadow */
-    max-width: 500px;
-    /* Take up full width on mobile */
-    position: relative;
-    flex: 1;
-    padding: 20px;
-    overflow: hidden;
-    max-width: none;
-    border-bottom: none;
-    border-top: none;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 20px;
+  font-family: "Big Caslon", "Times New Roman", serif;
+  margin: 0;
+  /* Reduced margin for mobile */
+  padding: 45px 35px;
+  /* Reduced padding for mobile */
+  border: 1px solid #e6e6e6;
+  border-radius: 0;
+  /* Slightly smaller radius for mobile */
+  background-color: #222;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Less pronounced shadow */
+  max-width: 500px;
+  /* Take up full width on mobile */
+  position: relative;
+  flex: 1;
+  padding: 20px;
+  overflow: hidden;
+  max-width: none;
+  border-bottom: none;
+  border-top: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
 }
 
 .guest-notificationstv h1 {
-    font-family: 'Big Caslon', 'Times New Roman', serif;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: 400;
-    line-height: 1.1em;
-    letter-spacing: 0.05em;
-    color: white;
-    margin: 0;
-    font-size: 30px;
+  font-family: "Big Caslon", "Times New Roman", serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 400;
+  line-height: 1.1em;
+  letter-spacing: 0.05em;
+  color: white;
+  margin: 0;
+  font-size: 30px;
 }
 
 .guest-notificationstv h2 {
-    font-family: 'Proxima Nova', 'Helvetica Neue', sans-serif;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: 200;
-    line-height: 1.2em;
-    letter-spacing: 0.05em;
-    color: white;
-    margin: 0;
-    font-size: 20px;
+  font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 200;
+  line-height: 1.2em;
+  letter-spacing: 0.05em;
+  color: white;
+  margin: 0;
+  font-size: 20px;
 }
 
-
 .screen-icon {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .rating-icon {
-    width: 25px;
-    height: 25px;
+  width: 25px;
+  height: 25px;
 }
 
 .screen-toggle {
-    width: 15px;
-    height: 15px;
-    padding: 10px;
-    border-radius: 100%;
-    background-image: linear-gradient(#f7f8fa, #e7e9ec);
-    box-shadow: rgba(255, 255, 255, .6) 0 1px 0 inset;
-    position: absolute;
-    right: 35px;
-    top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0.2;
+  width: 15px;
+  height: 15px;
+  padding: 10px;
+  border-radius: 100%;
+  background-image: linear-gradient(#f7f8fa, #e7e9ec);
+  box-shadow: rgba(255, 255, 255, 0.6) 0 1px 0 inset;
+  position: absolute;
+  right: 35px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.2;
 }
 
-
-
 @media screen and (max-width: 600px) {
-    .guest-notificationstv {
-        padding: 20px 15px;
-        /* Further reduced padding for mobile */
-        margin: 5px auto;
-        /* Further reduced margin for mobile */
-    }
+  .guest-notificationstv {
+    padding: 20px 15px;
+    /* Further reduced padding for mobile */
+    margin: 5px auto;
+    /* Further reduced margin for mobile */
+  }
 
-    .guest-notificationstv h2 {
-        font-size: 1.5em;
-        /* Smaller heading for mobile */
-    }
+  .guest-notificationstv h2 {
+    font-size: 1.5em;
+    /* Smaller heading for mobile */
+  }
 
-    .screen-toggle {
-        width: 20px;
-        height: 20px;
-        left: 15px;
-        top: 20px;
-        /* Adjusted position for mobile */
-    }
-
+  .screen-toggle {
+    width: 20px;
+    height: 20px;
+    left: 15px;
+    top: 20px;
+    /* Adjusted position for mobile */
+  }
 }
 
 .tv-layout {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-    background-color: black;
-    color: white;
-    overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: black;
+  color: white;
+  overflow: hidden;
 }
 
 .image-section {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border-right: none;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-right: none;
 }
 
 .image-section.full-screen {
-    flex: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .image-section.full-screen h2,
 .image-section.full-screen input {
-    display: none;
+  display: none;
 }
 
 /* Fix the image container to ensure proper sizing */
 .image-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    /* Prevent overflow */
-    position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Prevent overflow */
+  position: relative;
 }
 
 /* .image-container:after {
@@ -172,57 +167,57 @@ body {
   } */
 
 .image-container:hover:after {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* Remove the duplicate .image-container img style at the bottom and use this single definition */
 .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    /* Add object-position to control which part of the image is shown */
-    object-position: right;
-    /* Show the top part of the image */
-    border: none;
-    border-radius: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Add object-position to control which part of the image is shown */
+  object-position: right;
+  /* Show the top part of the image */
+  border: none;
+  border-radius: 0;
 }
 
 /* Base styles for both image display modes */
 .image-container img {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 0;
-    cursor: pointer;
-    /* Add pointer cursor to indicate it's clickable */
-    transition: all 0.3s ease;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  /* Add pointer cursor to indicate it's clickable */
+  transition: all 0.3s ease;
 }
 
 /* Contain mode - shows the entire image */
 img.image-contain {
-    object-fit: contain;
-    object-position: right;
+  object-fit: contain;
+  object-position: right;
 }
 
 /* Cover mode - fills the container */
 img.image-cover {
-    object-fit: cover;
-    object-position: right;
-    /* You can adjust this to control which part is shown */
+  object-fit: cover;
+  object-position: right;
+  /* You can adjust this to control which part is shown */
 }
 
 .image-section h2 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .guest-notificationstv h3 {
-    font-family: 'Proxima Nova', 'Helvetica Neue', sans-serif;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: 200;
-    line-height: 1.2em;
-    letter-spacing: 0.05em;
-    color: white;
-    margin: 0;
-    font-size: 15px;
+  font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 200;
+  line-height: 1.2em;
+  letter-spacing: 0.05em;
+  color: white;
+  margin: 0;
+  font-size: 15px;
 }

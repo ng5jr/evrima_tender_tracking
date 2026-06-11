@@ -300,7 +300,6 @@ const Logo = ({ page, enableSound, soundEnabled, tv }) => {
         <nav className="links">
           <Link className="header-link" to="/">
             <span>Notifications</span>
-
           </Link>
           {/* <Link className="header-link" to="/map">
             <span>Live Tracker</span> */}
@@ -310,16 +309,14 @@ const Logo = ({ page, enableSound, soundEnabled, tv }) => {
             <span>Feedback</span>
             {/* <SlLike /> */}
           </Link>
-          {page !== "no-sound" && (<div onClick={enableSound} className="volume">
+          {/* {page !== "no-sound" && (<div onClick={enableSound} className="volume">
             {!soundEnabled ? (
               <FaVolumeMute />
             ) : (
               <FaVolumeUp />
             )}
-          </div>)}
-
+          </div>)} */}
         </nav>
-
       </header>
     );
   }

@@ -1,4 +1,4 @@
-header {
+/* header {
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
@@ -9,17 +9,19 @@ header {
   position: relative;
 
   height: 80px;
-}
+} */
 
 header {
   display: flex;
   height: 61px;
-  padding-top: var(--Spacing-24, 32px);
+  padding-top: var(--Spacing-24, 24px);
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   gap: var(--Padding-3xl, 32px);
   flex-shrink: 0;
   align-self: stretch;
+  border-bottom: 1px solid var(--Border-Neutral-Default, rgba(28, 28, 28, 0.2));
+  background: #fff;
 }
 
 .logo {
@@ -80,9 +82,14 @@ header {
   letter-spacing: 0.39px;
   color: #1c1c1c;
   padding: 12px 0;
-  border-bottom:;
   font-size: 13px;
-  border-bottom: 1px solid #1c1c1c;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.header-link:hover,
+.header-link-active {
+  border-bottom-color: #1c1c1c;
 }
 
 .header-link svg {
@@ -126,21 +133,29 @@ header {
 
 @media screen and (max-width: 600px) {
   header {
+    display: flex;
+    margin: 18px 18px 0 18px;
+    padding: 0;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: -10px;
-    position: relative;
-  }
-
-  .links {
-    border-radius: 8px;
-    padding: 8px 0;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    max-width: 100vw;
+    height: unset;
   }
 
   .logo {
-    width: 130px;
+    all: unset;
+  }
+
+  .logo svg {
+    width: 160px;
+    height: auto;
+  }
+
+  .links {
+    padding-top: 24px;
   }
 
   .feedback-icon-container {

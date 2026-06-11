@@ -1,15 +1,6 @@
 import React from "react";
 import "./logo.css"; // Assuming you have a CSS file for styling
-import logoImage from "../assets/RCYC_PRIMARY_CMYK .jpg"; // Adjust the path as necessary
-import { Link } from "react-router-dom";
-import rating from "../assets/rating.png"; // Adjust the path as necessary
-import volume from "../assets/volume.png"; // Adjust the path as necessary
-import mute from "../assets/mute.png"; // Adjust the path as necessary
-import { FaVolumeMute } from "react-icons/fa";
-import { FaVolumeUp } from "react-icons/fa";
-import { MdOutlineNotificationsActive } from "react-icons/md";
-import { FaMapLocationDot } from "react-icons/fa6";
-import { SlLike } from "react-icons/sl";
+import { Link, NavLink } from "react-router-dom";
 
 const Logo = ({ page, enableSound, soundEnabled, tv }) => {
   if (tv === "tv") {
@@ -298,17 +289,28 @@ const Logo = ({ page, enableSound, soundEnabled, tv }) => {
         </div>
       </Link> */}
         <nav className="links">
-          <Link className="header-link" to="/">
+          <NavLink
+            className={({ isActive }) =>
+              `header-link ${isActive ? "header-link-active" : ""}`
+            }
+            to="/"
+            end
+          >
             <span>Notifications</span>
-          </Link>
+          </NavLink>
           {/* <Link className="header-link" to="/map">
             <span>Live Tracker</span> */}
           {/* <FaMapLocationDot /> */}
           {/* </Link> */}
-          <Link className="header-link" to="/feedback">
+          <NavLink
+            className={({ isActive }) =>
+              `header-link ${isActive ? "header-link-active" : ""}`
+            }
+            to="/feedback"
+          >
             <span>Feedback</span>
             {/* <SlLike /> */}
-          </Link>
+          </NavLink>
           {/* {page !== "no-sound" && (<div onClick={enableSound} className="volume">
             {!soundEnabled ? (
               <FaVolumeMute />

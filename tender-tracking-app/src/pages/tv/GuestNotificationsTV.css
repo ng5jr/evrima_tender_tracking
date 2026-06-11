@@ -6,7 +6,7 @@ body {
 }
 
 .guest-notificationstv {
-  font-family: "Big Caslon", "Times New Roman", serif;
+  font-family: var(--app-font-display);
   margin: 0;
   /* Reduced margin for mobile */
   padding: 45px 35px;
@@ -35,7 +35,7 @@ body {
 }
 
 .guest-notificationstv h1 {
-  font-family: "Big Caslon", "Times New Roman", serif;
+  font-family: var(--app-font-display);
   text-transform: uppercase;
   text-align: center;
   font-weight: 400;
@@ -47,7 +47,7 @@ body {
 }
 
 .guest-notificationstv h2 {
-  font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
+  font-family: var(--app-font-body);
   text-transform: uppercase;
   text-align: center;
   font-weight: 200;
@@ -211,7 +211,7 @@ img.image-cover {
 }
 
 .guest-notificationstv h3 {
-  font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
+  font-family: var(--app-font-body);
   text-transform: uppercase;
   text-align: center;
   font-weight: 200;

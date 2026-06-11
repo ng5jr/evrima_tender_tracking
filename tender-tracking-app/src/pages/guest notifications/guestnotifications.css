@@ -53,7 +53,7 @@ body {
 }
 
 .guest-notifications h1 {
-  font-family: "Big Caslon", "Times New Roman", serif;
+  font-family: var(--app-font-display);
   font-weight: 400;
   font-style: normal;
   font-size: 42px;
@@ -64,14 +64,19 @@ body {
 }
 
 .guest-notifications h2 {
-  font-family: "Big Caslon", "Times New Roman", serif;
-  font-weight: 400;
+  all: unset;
+  color: var(--Text-Neutral-Primary, #1c1c1c);
+
+  /* Headlines/Eyebrow */
+  font-family: var(--Typography-Headlines-Eyebrow-fontFamily, "Big Caslon CC");
+  font-size: var(--Typography-Headlines-Eyebrow-fontSize, 27px);
   font-style: italic;
-  font-size: 27px;
-  line-height: 32.4px;
-  letter-spacing: 0.54px;
-  color: #1c1c1c;
-  margin: 0;
+  font-weight: 400;
+  line-height: var(
+    --Typography-Headlines-Eyebrow-lineHeight,
+    32.4px
+  ); /* 120% */
+  letter-spacing: var(--Typography-Headlines-Eyebrow-letterSpacing, 0.54px);
 }
 
 .guest-notifications h3 {
@@ -130,24 +135,27 @@ body {
   border-left: 1px solid rgb(28, 28, 28, 0.2);
   font-family: Mulish, "Helvetica Neue", sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: var(--Typography-Body-Disclaimer-fontSize, 14px);
   line-height: 19.6px;
   letter-spacing: 0.39px;
-  color: #1c1c1c;
+  color: var(--Text-Neutral-Tertiary, #404040);
+  font-family: var(--Typography-Body-Disclaimer-fontFamily, Mulish);
 }
 
 .tender-number {
-  font-family: BigCaslonCC, "Times New Roman", serif;
+  color: var(--Text-Neutral-Tertiary, #616161);
+  text-align: center;
+
+  /* Headlines/Eyebrow */
+  font-family: var(--Typography-Headlines-Eyebrow-fontFamily, "Big Caslon CC");
+  font-size: var(--Typography-Headlines-Eyebrow-fontSize, 27px);
   font-style: italic;
   font-weight: 400;
-  font-size: 27px;
-  line-height: 32.4px;
-  letter-spacing: 0.54px;
-  height: 33px;
-  width: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: var(
+    --Typography-Headlines-Eyebrow-lineHeight,
+    32.4px
+  ); /* 120% */
+  letter-spacing: var(--Typography-Headlines-Eyebrow-letterSpacing, 0.54px);
 }
 
 .notification-item:last-child {
@@ -238,7 +246,7 @@ body {
 }
 
 .waiting-info h4 {
-  font-family: "Big Caslon", "Times New Roman", serif;
+  font-family: var(--app-font-display);
   font-weight: 400;
   font-style: normal;
   font-size: 24px;
@@ -283,53 +291,141 @@ body {
 }
 
 @media screen and (max-width: 600px) {
+  .header-container {
+    margin: 0 0;
+    padding: 24px 24px 40px 24px;
+  }
+
   .guest-notifications {
-    padding: 20px 15px;
+    padding: 0;
     /* Further reduced padding for mobile */
-    margin: 10px;
+    margin: 0;
     /* Further reduced margin for mobile */
-    height: calc(100vh - 20px);
+    height: calc(100vh);
   }
 
   .guest-notifications h1 {
-    line-height: 1.1em;
-    letter-spacing: 0.05em;
-    font-size: 25px;
+    color: var(--Text-Neutral-Primary, #1c1c1c);
+
+    /* Headlines/Heading 1 CAPS */
+    font-family: var(
+      --Typography-Headlines-Heading-1-CAPS-fontFamily,
+      "Big Caslon CC"
+    );
+    font-size: var(--Typography-Headlines-Heading-1-CAPS-fontSize, 31px);
+    font-style: normal;
+    font-weight: var(--Typography-Variant-Regular, 400);
+    line-height: var(
+      --Typography-Headlines-Heading-1-CAPS-lineHeight,
+      37.2px
+    ); /* 120% */
+    letter-spacing: var(
+      --Typography-Headlines-Heading-1-CAPS-letterSpacing,
+      0.31px
+    );
+    text-transform: uppercase;
+    margin-bottom: 8px;
   }
 
   .guest-notifications h2 {
-    font-weight: 200;
-    line-height: 1.2em;
-    letter-spacing: 0.05em;
+    all: unset;
+    color: var(--Text-Neutral-Primary, #1c1c1c);
 
-    font-size: 15px;
+    /* Headlines/Eyebrow */
+    font-family: var(
+      --Typography-Headlines-Eyebrow-fontFamily,
+      "Big Caslon CC"
+    );
+    color: var(--Text-Neutral-Primary, #1c1c1c);
+
+    /* Headlines/Eyebrow */
+    font-family: var(
+      --Typography-Headlines-Eyebrow-fontFamily,
+      "Big Caslon CC"
+    );
+    font-size: var(--Typography-Headlines-Eyebrow-fontSize, 24px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: var(
+      --Typography-Headlines-Eyebrow-lineHeight,
+      28.8px
+    ); /* 120% */
+    letter-spacing: var(--Typography-Headlines-Eyebrow-letterSpacing, 0.48px);
   }
 
-  .guest-notifications h2 {
-    font-weight: 200;
-    line-height: 1.2em;
-    letter-spacing: 0.05em;
+  .guest-notifications h3 {
+    color: var(--Text-Neutral-Quaternary, #787678);
 
-    font-size: 10px;
+    /* Caption/Label */
+    font-family: var(--Typography-Caption-Label-fontFamily, Mulish);
+    font-size: var(--Typography-Caption-Label-fontSize, 13px);
+    font-style: normal;
+    font-weight: var(--Typography-Variant-Regular, 400);
+    line-height: var(--Typography-Caption-Label-lineHeight, 13px); /* 100% */
+    letter-spacing: var(--Typography-Caption-Label-letterSpacing, 0.39px);
+  }
+
+  .reference-info {
+    margin: 0 24px 24px 24px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
   }
 
   .notification-item {
-    padding: 8px;
+    padding: var(--Padding-lg, 16px) 24px;
+
     /* Further reduced padding */
   }
 
   .notification-message {
-    font-size: 12px;
+    font-size: 16px;
     /* Further reduced font size for mobile */
   }
 
   .notification-eta {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .notification-time {
-    font-size: 10px;
+    font-size: 14px;
     /* Further reduced font size for mobile */
+  }
+
+  .tender {
+    color: var(--Text-Neutral-Tertiary, #404040);
+    text-align: center;
+
+    /* Body/Disclaimer */
+    font-family: var(--Typography-Body-Disclaimer-fontFamily, Mulish);
+    font-size: var(--Typography-Body-Disclaimer-fontSize, 14px);
+    font-style: normal;
+    font-weight: var(--Typography-Variant-Regular, 400);
+    line-height: var(
+      --Typography-Body-Disclaimer-lineHeight,
+      19.6px
+    ); /* 140% */
+    letter-spacing: var(--Typography-Body-Disclaimer-letterSpacing, 0);
+  }
+  .tender-number {
+    color: var(--Text-Neutral-Tertiary, #616161);
+    text-align: center;
+
+    /* Headlines/Eyebrow */
+    font-family: var(
+      --Typography-Headlines-Eyebrow-fontFamily,
+      "Big Caslon CC"
+    );
+    font-size: var(--Typography-Headlines-Eyebrow-fontSize, 24px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: var(
+      --Typography-Headlines-Eyebrow-lineHeight,
+      28.8px
+    ); /* 120% */
+    letter-spacing: var(--Typography-Headlines-Eyebrow-letterSpacing, 0.48px);
   }
 
   .feedback-icon-container {

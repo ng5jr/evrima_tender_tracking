@@ -202,7 +202,8 @@ function GuestNotifications() {
     const action = notification.action;
     const arrivedLocation = direction === "SHIPSIDE" ? vesselName : "pier";
     const departedLocation = direction === "SHIPSIDE" ? "pier" : vesselName;
-    const arrivedIcon = direction === "SHIPSIDE" ? "arrivedShip" : "arrivedPier";
+    const arrivedIcon =
+      direction === "SHIPSIDE" ? "arrivedShip" : "arrivedPier";
     const departedIcon =
       direction === "SHIPSIDE" ? "departedPier" : "departedShip";
 
@@ -218,14 +219,14 @@ function GuestNotifications() {
       return {
         message: `Departed From ${departedLocation}`,
         icon: departedIcon,
-        eta: arrivalTime ? `Estimated Time of arrival ${arrivalTime}` : "",
+        eta: arrivalTime ? `Estimated Time of Arrival ${arrivalTime}` : "",
       };
     }
 
     return {
       message: notification.message || "",
       icon: null,
-      eta: arrivalTime ? `Estimated Time of arrival ${arrivalTime}` : "",
+      eta: arrivalTime ? `Estimated Time of Arrival ${arrivalTime}` : "",
     };
   };
 
@@ -289,6 +290,20 @@ function GuestNotifications() {
         </div>
       ) : (
         <div className="waiting-info">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+          >
+            <path
+              d="M16 9V16H23M28 16C28 22.6274 22.6274 28 16 28C9.37258 28 4 22.6274 4 16C4 9.37258 9.37258 4 16 4C22.6274 4 28 9.37258 28 16Z"
+              stroke="#787678"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
           <h4 className="waiting-title">Thanks for your patience</h4>
           <p>Waiting for port information...</p>
         </div>

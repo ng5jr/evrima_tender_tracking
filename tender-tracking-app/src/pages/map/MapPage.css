@@ -1,5 +1,5 @@
 MapPage.css body {
-  font-family: "Big Caslon", "Times New Roman", serif;
+  font-family: var(--app-font-display);
 }
 
 .map-page {

@@ -1,18 +1,23 @@
+:root {
+  --app-font-body: "Mulish", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Helvetica Neue", sans-serif;
+  --app-font-display: "Big Caslon CC", "Big Caslon",
+    "Libre Caslon Display", Georgia, "Times New Roman", serif;
+  --Typography-Body-Default-fontFamily: var(--app-font-body);
+  --Typography-Body-Medium-fontFamily: var(--app-font-body);
+  --Typography-Body-Disclaimer-fontFamily: var(--app-font-body);
+  --Typography-Caption-Data-fontFamily: var(--app-font-body);
+  --Typography-Caption-Label-fontFamily: var(--app-font-body);
+  --Typography-Interaction-Button-fontFamily: var(--app-font-body);
+  --Typography-Headlines-Display-fontFamily: var(--app-font-display);
+  --Typography-Headlines-Eyebrow-fontFamily: var(--app-font-display);
+  --Typography-Headlines-Heading-1-CAPS-fontFamily: var(--app-font-display);
+  --Typography-Headlines-Heading-2-fontFamily: var(--app-font-display);
+}
+
 body {
   margin: 0;
-  font-family:
-    "Mulish",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Roboto",
-    "Oxygen",
-    "Ubuntu",
-    "Cantarell",
-    "Fira Sans",
-    "Droid Sans",
-    "Helvetica Neue",
-    sans-serif;
+  font-family: var(--app-font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -6,56 +6,196 @@ body {
 }
 
 .guest-notificationstv {
-  font-family: var(--app-font-display);
   margin: 0;
-  /* Reduced margin for mobile */
-  padding: 45px 35px;
-  /* Reduced padding for mobile */
-  border: 1px solid #e6e6e6;
+  padding: 0;
+  border: none;
   border-radius: 0;
-  /* Slightly smaller radius for mobile */
-  background-color: #222;
-  color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  /* Less pronounced shadow */
-  max-width: 500px;
-  /* Take up full width on mobile */
+  background-color: #ffffff;
+  color: #1c1c1c;
   position: relative;
   flex: 1;
-  padding: 20px;
   overflow: hidden;
   max-width: none;
-  border-bottom: none;
-  border-top: none;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 20px;
+}
+
+.guest-notificationstv header .links {
+  display: none;
 }
 
 .guest-notificationstv h1 {
   font-family: var(--app-font-display);
   text-transform: uppercase;
-  text-align: center;
   font-weight: 400;
-  line-height: 1.1em;
-  letter-spacing: 0.05em;
-  color: white;
-  margin: 0;
-  font-size: 30px;
+  line-height: 46.2px;
+  letter-spacing: 0.84px;
+  color: #1c1c1c;
+  margin: 0 0 32px 0;
+  font-size: 42px;
 }
 
 .guest-notificationstv h2 {
-  font-family: var(--app-font-body);
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: 200;
-  line-height: 1.2em;
-  letter-spacing: 0.05em;
-  color: white;
+  all: unset;
+  color: #1c1c1c;
+  font-family: var(--Typography-Headlines-Eyebrow-fontFamily, "Big Caslon CC");
+  font-size: var(--Typography-Headlines-Eyebrow-fontSize, 27px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: var(--Typography-Headlines-Eyebrow-lineHeight, 32.4px);
+  letter-spacing: var(--Typography-Headlines-Eyebrow-letterSpacing, 0.54px);
+}
+
+.guest-notificationstv h3 {
+  font-family: Mulish, "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 13px;
+  letter-spacing: 0.39px;
+  color: #404040;
   margin: 0;
-  font-size: 20px;
+}
+
+.guest-notificationstv .header-container {
+  margin: 0 72px;
+  padding: 64px 0 40px 0;
+}
+
+.guest-notificationstv .reference-info {
+  margin: 0 72px 24px 72px;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.guest-notificationstv .reference-label {
+  font-family: Mulish, "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 13px;
+  letter-spacing: 0.39px;
+  color: #1c1c1c;
+  padding: 0 16px 0 0;
+  border-right: 1px solid rgba(28, 28, 28, 0.2);
+}
+
+.guest-notificationstv .reference-label:last-child {
+  padding: 0;
+  border-right: none;
+}
+
+.guest-notificationstv .notification-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.guest-notificationstv .notification-list::-webkit-scrollbar {
+  display: none;
+}
+
+.guest-notificationstv .notification-item {
+  border-bottom: 1px solid rgba(28, 28, 28, 0.2);
+  transition:
+    background-color 0.3s ease,
+    text-align 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 72px;
+}
+
+.guest-notificationstv .notification-content {
+  min-width: 0;
+}
+
+.guest-notificationstv .notification-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  color: #1c1c1c;
+  text-overflow: ellipsis;
+  font-family: var(--Typography-Body-Default-fontFamily, Mulish);
+  font-size: var(--Typography-Body-Default-fontSize, 16px);
+  font-weight: var(--Typography-Variant-Regular, 700);
+  line-height: var(--Typography-Body-Default-lineHeight, 24px);
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.guest-notificationstv .notification-icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  aspect-ratio: 1/1;
+}
+
+.guest-notificationstv .notification-eta,
+.guest-notificationstv .notification-time {
+  color: #404040;
+  font-family: var(--Typography-Body-Disclaimer-fontFamily, Mulish);
+  font-size: var(--Typography-Body-Disclaimer-fontSize, 14px);
+  font-weight: 400;
+  line-height: var(--Typography-Body-Disclaimer-lineHeight, 19.6px);
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.guest-notificationstv .notification-eta {
+  margin: 8px 0 0 0;
+  min-height: 19.594px;
+}
+
+.guest-notificationstv .tender {
+  display: flex;
+  flex-direction: column;
+  padding-left: 24px;
+  min-width: 72px;
+  border-left: 1px solid rgba(28, 28, 28, 0.2);
+  font-family: var(--Typography-Body-Disclaimer-fontFamily, Mulish);
+  font-weight: 400;
+  font-size: var(--Typography-Body-Disclaimer-fontSize, 14px);
+  line-height: 19.6px;
+  letter-spacing: 0.39px;
+  color: #404040;
+  text-align: center;
+}
+
+.guest-notificationstv .tender-number {
+  color: #404040;
+  text-align: center;
+  font-family: var(--Typography-Headlines-Eyebrow-fontFamily, "Big Caslon CC");
+  font-size: var(--Typography-Headlines-Eyebrow-fontSize, 27px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: var(--Typography-Headlines-Eyebrow-lineHeight, 32.4px);
+  letter-spacing: var(--Typography-Headlines-Eyebrow-letterSpacing, 0.54px);
+}
+
+.guest-notificationstv .shipside-notification {
+  background-color: #e8f1fa;
+  color: #1c1c1c;
+}
+
+.guest-notificationstv .shoreside-notification {
+  background-color: #ffffff;
+  color: #1c1c1c;
+}
+
+.guest-notificationstv .custom-notification {
+  background-color: #ffffff;
+  color: #1c1c1c;
 }
 
 .screen-icon {
@@ -87,15 +227,35 @@ body {
 
 @media screen and (max-width: 600px) {
   .guest-notificationstv {
-    padding: 20px 15px;
-    /* Further reduced padding for mobile */
-    margin: 5px auto;
-    /* Further reduced margin for mobile */
+    margin: 0;
+  }
+
+  .guest-notificationstv .header-container {
+    margin: 0;
+    padding: 24px 24px 40px 24px;
+  }
+
+  .guest-notificationstv h1 {
+    font-size: var(--Typography-Headlines-Heading-1-CAPS-fontSize, 31px);
+    line-height: var(--Typography-Headlines-Heading-1-CAPS-lineHeight, 37.2px);
+    letter-spacing: var(--Typography-Headlines-Heading-1-CAPS-letterSpacing, 0.31px);
+    margin-bottom: 8px;
   }
 
   .guest-notificationstv h2 {
-    font-size: 1.5em;
-    /* Smaller heading for mobile */
+    font-size: var(--Typography-Headlines-Eyebrow-fontSize, 24px);
+    line-height: var(--Typography-Headlines-Eyebrow-lineHeight, 28.8px);
+    letter-spacing: var(--Typography-Headlines-Eyebrow-letterSpacing, 0.48px);
+  }
+
+  .guest-notificationstv .reference-info {
+    margin: 0 24px 24px 24px;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .guest-notificationstv .notification-item {
+    padding: var(--Padding-lg, 16px) 24px;
   }
 
   .screen-toggle {
@@ -210,14 +370,3 @@ img.image-cover {
   margin-bottom: 20px;
 }
 
-.guest-notificationstv h3 {
-  font-family: var(--app-font-body);
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: 200;
-  line-height: 1.2em;
-  letter-spacing: 0.05em;
-  color: white;
-  margin: 0;
-  font-size: 15px;
-}

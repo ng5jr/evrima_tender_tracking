@@ -183,6 +183,28 @@ function GuestNotificationsTV() {
         }
     };
 
+    const getNotificationLocationClass = (notification) => {
+        const { action, direction } = notification;
+
+        if (action === "ARRIVED") {
+            return direction === "SHIPSIDE"
+                ? "shipside-notification"
+                : "shoreside-notification";
+        }
+
+        if (action === "DEPARTED") {
+            return direction === "SHIPSIDE"
+                ? "shoreside-notification"
+                : "shipside-notification";
+        }
+
+        return direction === "SHIPSIDE"
+            ? "shipside-notification"
+            : direction === "SHORESIDE"
+                ? "shoreside-notification"
+                : "custom-notification";
+    };
+
     useEffect(() => {
         const handleFullscreenChange = () => {
             setIsFullscreen(!!document.fullscreenElement);
@@ -267,12 +289,7 @@ function GuestNotificationsTV() {
                         return (
                             <li
                                 key={notification.id}
-                                className={`notification-item ${notification.direction === "SHORESIDE"
-                                    ? "shoreside-notification"
-                                    : notification.direction === "SHIPSIDE"
-                                        ? "shipside-notification"
-                                        : "custom-notification"
-                                    } ${notification.id === latestNotificationId
+                                className={`notification-item ${getNotificationLocationClass(notification)} ${notification.id === latestNotificationId
                                         ? "blinking-notification"
                                         : ""
                                     }`}

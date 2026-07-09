@@ -125,7 +125,7 @@
 
 .star-icon path {
   fill: transparent;
-  stroke: #787678;
+  stroke: #404040;
   transition:
     fill 0.2s ease,
     stroke 0.2s ease;
@@ -162,7 +162,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: 12px;
 
   padding-left: 56px;
   flex-grow: 1;
@@ -170,26 +170,21 @@
 
 .comment-section h3 {
   all: unset;
-  color: var(--Text-Neutral-Primary, #171717);
+  color: var(--Input-Text-Label-default, #404040);
 
   /* Headlines/Heading 2 */
-  font-family: var(
-    --Typography-Headlines-Heading-2-fontFamily,
-    "Big Caslon CC"
-  );
-  font-size: var(--Typography-Headlines-Heading-2-fontSize, 24px);
+  font-family: var(--Typography-Caption-Data-fontFamily, Mulish);
+  font-size: var(--Typography-Caption-Data-fontSize, 13px);
   font-style: normal;
   font-weight: var(--Typography-Variant-Regular, 400);
-  line-height: var(
-    --Typography-Headlines-Heading-2-lineHeight,
-    31.2px
-  ); /* 130% */
-  letter-spacing: var(--Typography-Headlines-Heading-2-letterSpacing, 0.48px);
+  line-height: var(--Typography-Caption-Data-lineHeight, 13px); /* 100% */
+  letter-spacing: var(--Typography-Caption-Data-letterSpacing, 0.39px);
+  text-transform: uppercase;
 }
 
 .comment-section textarea {
   overflow: hidden;
-  color: var(--Input-Text-Placeholder-default, #787678);
+  color: var(--Input-Text-Placeholder-default, #404040);
   text-overflow: ellipsis;
 
   /* Body/Default Regular */
@@ -472,7 +467,7 @@
 
   .comment-section h3 {
     all: unset;
-    color: var(--Input-Text-Label-default, #787678);
+    color: var(--Input-Text-Label-default, #404040);
 
     /* Caption/Data */
     font-family: var(--Typography-Caption-Data-fontFamily, Mulish);
@@ -486,7 +481,7 @@
 
   .comment-section textarea {
     overflow: hidden;
-    color: var(--Input-Text-Placeholder-default, #787678);
+    color: var(--Input-Text-Placeholder-default, #404040);
     text-overflow: ellipsis;
 
     /* Body/Default Regular */

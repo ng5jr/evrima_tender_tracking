@@ -1,8 +1,8 @@
 :root {
   --app-font-body: "Mulish", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Helvetica Neue", sans-serif;
-  --app-font-display: "Big Caslon CC", "Big Caslon",
-    "Libre Caslon Display", Georgia, "Times New Roman", serif;
+  --app-font-display: "big-caslon-fb", "Big Caslon CC", "Big Caslon", Georgia,
+    "Times New Roman", serif;
   --Typography-Body-Default-fontFamily: var(--app-font-body);
   --Typography-Body-Medium-fontFamily: var(--app-font-body);
   --Typography-Body-Disclaimer-fontFamily: var(--app-font-body);

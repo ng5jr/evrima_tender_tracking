@@ -1,13 +1,19 @@
 import React from "react";
 import "./logo.css"; // Assuming you have a CSS file for styling
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 const Logo = ({ page, enableSound, soundEnabled, tv }) => {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const isEmbed = params.get("embed") === "true";
+  const embedSearch = isEmbed ? "?embed=true" : "";
+
   if (tv === "tv") {
     return (
-      <header>
-        <Link to="/">
-          <div className="logo">
+      <header className={isEmbed ? "embed-header" : ""}>
+        {!isEmbed ? (
+          <Link to={`/${embedSearch}`}>
+            <div className="logo">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="175"
@@ -142,12 +148,14 @@ const Logo = ({ page, enableSound, soundEnabled, tv }) => {
             </svg>
           </div>
         </Link>
+        ) : null}
       </header>
     );
   } else {
     return (
-      <header>
-        <Link to="/">
+      <header className={isEmbed ? "embed-header" : ""}>
+        {!isEmbed ? (
+        <Link to={`/${embedSearch}`}>
           <div className="logo">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -283,6 +291,7 @@ const Logo = ({ page, enableSound, soundEnabled, tv }) => {
             </svg>
           </div>
         </Link>
+        ) : null}
         {/* <Link to="/feedback">
         <div className="feedback-icon-container">
           <img src={rating} alt="View Tender Map" className="rating-icon" />
@@ -293,7 +302,7 @@ const Logo = ({ page, enableSound, soundEnabled, tv }) => {
             className={({ isActive }) =>
               `header-link ${isActive ? "header-link-active" : ""}`
             }
-            to="/"
+            to={`/${embedSearch}`}
             end
           >
             <span>Notifications</span>
@@ -306,7 +315,7 @@ const Logo = ({ page, enableSound, soundEnabled, tv }) => {
             className={({ isActive }) =>
               `header-link ${isActive ? "header-link-active" : ""}`
             }
-            to="/feedback"
+            to={`/feedback${embedSearch}`}
           >
             <span>Feedback</span>
             {/* <SlLike /> */}

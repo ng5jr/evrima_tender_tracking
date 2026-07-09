@@ -86,7 +86,7 @@ body {
   font-size: 13px;
   line-height: 13px;
   letter-spacing: 0.39px;
-  color: #787678;
+  color: #404040;
   margin: 0;
 }
 
@@ -143,7 +143,7 @@ body {
 }
 
 .tender-number {
-  color: var(--Text-Neutral-Tertiary, #616161);
+  color: var(--Text-Neutral-Tertiary, #404040);
   text-align: center;
 
   /* Headlines/Eyebrow */
@@ -188,7 +188,7 @@ body {
 }
 
 .notification-eta {
-  color: var(--Text-Neutral-Quaternary, #787678);
+  color: var(--Text-Neutral-Quaternary, #404040);
 
   /* Body/Disclaimer */
   font-family: var(--Typography-Body-Disclaimer-fontFamily, Mulish);
@@ -252,7 +252,7 @@ body {
   font-size: 24px;
   line-height: 31.2px;
   letter-spacing: 0.48px;
-  color: #787678;
+  color: #404040;
   margin: 0;
 }
 
@@ -263,7 +263,7 @@ body {
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0px;
-  color: #787678;
+  color: #404040;
   margin: 0;
 }
 
@@ -354,7 +354,7 @@ body {
   }
 
   .guest-notifications h3 {
-    color: var(--Text-Neutral-Quaternary, #787678);
+    color: var(--Text-Neutral-Quaternary, #404040);
 
     /* Caption/Label */
     font-family: var(--Typography-Caption-Label-fontFamily, Mulish);
@@ -410,7 +410,7 @@ body {
     letter-spacing: var(--Typography-Body-Disclaimer-letterSpacing, 0);
   }
   .tender-number {
-    color: var(--Text-Neutral-Tertiary, #616161);
+    color: var(--Text-Neutral-Tertiary, #404040);
     text-align: center;
 
     /* Headlines/Eyebrow */

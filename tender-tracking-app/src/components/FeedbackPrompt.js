@@ -46,6 +46,9 @@ const randomDelayMs = () => {
 export default function FeedbackPrompt() {
     const location = useLocation();
     const navigate = useNavigate();
+    const isEmbed = new URLSearchParams(location.search).get("embed") === "true";
+    const feedbackSearch = isEmbed ? "?intent=improve&embed=true" : "?intent=improve";
+    const feedbackFallbackSearch = isEmbed ? "?embed=true" : "";
 
     const [visible, setVisible] = useState(false);
     const [hasTriggered, setHasTriggered] = useState(false);
@@ -118,7 +121,7 @@ export default function FeedbackPrompt() {
     const goToFeedback = () => {
         setSnooze(7); // prevent immediate re-show
         setVisible(false);
-        navigate("/feedback?intent=improve"); // << pass context for rating page
+        navigate(`/feedback${feedbackSearch}`); // << pass context for rating page
     };
 
     const closeOnly = () => {
@@ -145,7 +148,7 @@ export default function FeedbackPrompt() {
             setTimeout(() => setVisible(false), 2500);
         } catch (e) {
             // Fallback: route to full feedback
-            navigate("/feedback");
+            navigate(`/feedback${feedbackFallbackSearch}`);
         }
     };
 

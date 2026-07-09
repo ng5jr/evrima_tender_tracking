@@ -230,6 +230,28 @@ function GuestNotifications() {
     };
   };
 
+  const getNotificationLocationClass = (notification) => {
+    const { action, direction } = notification;
+
+    if (action === "ARRIVED") {
+      return direction === "SHIPSIDE"
+        ? "shipside-notification"
+        : "shoreside-notification";
+    }
+
+    if (action === "DEPARTED") {
+      return direction === "SHIPSIDE"
+        ? "shoreside-notification"
+        : "shipside-notification";
+    }
+
+    return direction === "SHIPSIDE"
+      ? "shipside-notification"
+      : direction === "SHORESIDE"
+        ? "shoreside-notification"
+        : "custom-notification";
+  };
+
   // Scroll to top when notifications change
   useEffect(() => {
     if (listRef.current) {
@@ -242,7 +264,7 @@ function GuestNotifications() {
       <Logo enableSound={enableSound} soundEnabled={soundEnabled} />
       <div className="header-container">
         <h2>{portName ? `At ${portName}` : "Waiting for Port Information"}</h2>
-        <h1>STATUS NOTIFICATIONS</h1>
+        <h1>TENDER STATUS NOTIFICATIONS</h1>
         <h3>{portName && `Last Tender from shoreside: ${lastTender}`}</h3>
         <audio
           ref={audioRef}
@@ -299,7 +321,7 @@ function GuestNotifications() {
           >
             <path
               d="M16 9V16H23M28 16C28 22.6274 22.6274 28 16 28C9.37258 28 4 22.6274 4 16C4 9.37258 9.37258 4 16 4C22.6274 4 28 9.37258 28 16Z"
-              stroke="#787678"
+              stroke="#404040"
               stroke-linecap="round"
               stroke-linejoin="round"
             />
@@ -337,13 +359,7 @@ function GuestNotifications() {
             return (
               <li
                 key={notification.id}
-                className={`notification-item ${
-                  notification.direction === "SHORESIDE"
-                    ? "shoreside-notification"
-                    : notification.direction === "SHIPSIDE"
-                      ? "shipside-notification"
-                      : "custom-notification"
-                } ${
+                className={`notification-item ${getNotificationLocationClass(notification)} ${
                   notification.id === latestNotificationId
                     ? "blinking-notification"
                     : ""

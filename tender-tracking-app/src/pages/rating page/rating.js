@@ -18,7 +18,7 @@ const StarIcon = () => (
   >
     <path
       d="M10.2491 15.9772L15.3791 19.1319C15.5122 19.2127 15.6662 19.2523 15.8218 19.2455C15.9774 19.2388 16.1274 19.1861 16.253 19.0941C16.3787 19.0021 16.4742 18.8749 16.5275 18.7286C16.5809 18.5823 16.5897 18.4235 16.5528 18.2722L15.1578 12.3857L19.7234 8.44818C19.8398 8.34597 19.9238 8.2119 19.9649 8.06253C20.0059 7.91317 20.0024 7.75504 19.9546 7.60767C19.9069 7.46031 19.817 7.33015 19.6961 7.23328C19.5752 7.13641 19.4286 7.07705 19.2744 7.06255L13.2828 6.57505L10.9747 0.987553C10.9158 0.843402 10.8154 0.720043 10.6862 0.633209C10.5569 0.546374 10.4048 0.5 10.2491 0.5C10.0934 0.5 9.9412 0.546374 9.81196 0.633209C9.68273 0.720043 9.58228 0.843402 9.52344 0.987553L7.21532 6.57505L1.22375 7.06255C1.06847 7.07619 0.920648 7.13528 0.798755 7.23244C0.676862 7.3296 0.586303 7.46053 0.538392 7.60886C0.490481 7.7572 0.487343 7.91636 0.529369 8.06647C0.571395 8.21658 0.656722 8.35097 0.77469 8.45287L5.34032 12.3904L3.94532 18.2722C3.90844 18.4235 3.91723 18.5823 3.97059 18.7286C4.02394 18.8749 4.11947 19.0021 4.24508 19.0941C4.3707 19.1861 4.52077 19.2388 4.67634 19.2455C4.8319 19.2523 4.98596 19.2127 5.11907 19.1319L10.2491 15.9772Z"
-      stroke="#787678"
+      stroke="#404040"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -35,6 +35,7 @@ function Rating() {
   const navigate = useNavigate();
   const location = useLocation(); // NEW
   const [intent, setIntent] = useState("default"); // NEW
+  const isEmbed = new URLSearchParams(location.search).get("embed") === "true";
 
   // NEW: read query param to customize copy when coming from thumbs-down
   useEffect(() => {
@@ -98,9 +99,9 @@ function Rating() {
     }
 
     if (redirectTimer === 0 && submissionStatus.startsWith("Thank you")) {
-      navigate("/");
+      navigate(isEmbed ? "/?embed=true" : "/");
     }
-  }, [redirectTimer, navigate, submissionStatus]);
+  }, [isEmbed, redirectTimer, navigate, submissionStatus]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";

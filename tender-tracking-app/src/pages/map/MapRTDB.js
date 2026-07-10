@@ -31,26 +31,19 @@ const tenderIcon = L.icon({
     popupAnchor: [0, -7],
 });
 
-const shipDotIcon = L.divIcon({
-    className: 'ship-dot-icon',
-    html: '<div style="width:4px;height:4px;background:#ff3333;border:2px solid #fff;border-radius:50%;box-shadow:0 0 6px #000a;"></div>',
-    iconSize: [12, 12],
-    iconAnchor: [6, 6],
-});
-
 const ShipMapRTDB = ({ pierLocation }) => {
     const [mapCenter, setMapCenter] = useState(null);
     const [shipPosition, setShipPosition] = useState(null);
     const [shipHeading, setShipHeading] = useState(0);
     const [shipLastReceived, setShipLastReceived] = useState(null);
-    const [tender1Position, setTender1Position] = useState(null);
-    const [tender1Heading, setTender1Heading] = useState(0);
-    const [tender1Speed, setTender1Speed] = useState(0);
-    const [tender1LastReceived, setTender1LastReceived] = useState(null);
-    const [tender2Position, setTender2Position] = useState(null);
-    const [tender2Heading, setTender2Heading] = useState(0);
-    const [tender2Speed, setTender2Speed] = useState(0);
-    const [tender2LastReceived, setTender2LastReceived] = useState(null);
+    const [tender1Position] = useState(null);
+    const [tender1Heading] = useState(0);
+    const [tender1Speed] = useState(0);
+    const [tender1LastReceived] = useState(null);
+    const [tender2Position] = useState(null);
+    const [tender2Heading] = useState(0);
+    const [tender2Speed] = useState(0);
+    const [tender2LastReceived] = useState(null);
     const [tender3Position, setTender3Position] = useState(null);
     const [tender3Heading, setTender3Heading] = useState(0);
     const [tender3Speed, setTender3Speed] = useState(0);
@@ -74,8 +67,6 @@ const ShipMapRTDB = ({ pierLocation }) => {
     useEffect(() => {
         const db = rtdb;
         const shipRef = ref(db, 'positions/ship/latest');
-        const tender1Ref = ref(db, 'positions/tender1/latest');
-        const tender2Ref = ref(db, 'positions/tender2/latest');
         const tender3Ref = ref(db, 'positions/tender3/latest');
         const tender4Ref = ref(db, 'positions/tender4/latest');
 
@@ -86,26 +77,6 @@ const ShipMapRTDB = ({ pierLocation }) => {
                 setShipHeading(data.heading || 0);
                 setShipLastReceived(new Date(data.timestamp));
                 console.log('RTDB Ship position:', [data.lat, data.lon], 'Ship Heading:', data.heading, 'Ship Speed:', data.speed, "Received at:", new Date().toLocaleTimeString());
-            }
-        };
-        const handleTender1Update = (snapshot) => {
-            const data = snapshot.val();
-            if (data && data.lat && data.lon) {
-                setTender1Position([data.lat, data.lon]);
-                setTender1Heading(data.heading || 0);
-                setTender1Speed(data.speed || 0);
-                setTender1LastReceived(new Date(data.timestamp));
-                console.log('Tender 1 position:', [data.lat, data.lon], 'Tender 1 Heading:', data.heading, 'Tender 1 Speed:', data.speed);
-            }
-        };
-        const handleTender2Update = (snapshot) => {
-            const data = snapshot.val();
-            if (data && data.lat && data.lon) {
-                setTender2Position([data.lat, data.lon]);
-                setTender2Heading(data.heading || 0);
-                setTender2Speed(data.speed || 0);
-                setTender2LastReceived(new Date(data.timestamp));
-                console.log('Tender 2 position:', [data.lat, data.lon], 'Tender 2 Heading:', data.heading, 'Tender 2 Speed:', data.speed);
             }
         };
         const handleTender3Update = (snapshot) => {

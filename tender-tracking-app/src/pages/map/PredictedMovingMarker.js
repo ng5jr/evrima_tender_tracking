@@ -123,7 +123,7 @@ const PredictedMovingMarker = ({
     let displayPosition = position;
 
     // --- Calculate ETA and distance based on last received position ---
-    let destination = null, etaSeconds = null, distanceMeters = null;
+    let destination = null, etaSeconds = null;
     let toShip = null, toPier = null;
     if (position && shipPosition && pierLocation) {
         toShip = haversine(position, shipPosition);
@@ -134,20 +134,16 @@ const PredictedMovingMarker = ({
             if (isHeadingTo(cog, position, shipPosition)) {
                 destination = "Evrima";
                 etaSeconds = toShip / speed;
-                distanceMeters = toShip;
             } else if (isHeadingTo(cog, position, pierLocation)) {
                 destination = "Pier";
                 etaSeconds = toPier / speed;
-                distanceMeters = toPier;
             }
         } else {
             // Stopped: show distance to closest destination
             if (toShip < toPier) {
                 destination = "Evrima";
-                distanceMeters = toShip;
             } else {
                 destination = "Pier";
-                distanceMeters = toPier;
             }
         }
     }
@@ -185,7 +181,6 @@ const PredictedMovingMarker = ({
                     </span>
                 ) : destination && (
                     <span style={{ fontSize: '0.7em', color: '#aaa' }}>
-                        {/* Distance to {destination}: <b>{Math.round(distanceMeters)} m</b><br /> */}
                         {(etaSeconds && etaSeconds > 0) && (
                             <>
                                 ETA to {destination}: <b>{formatClockTime(lastReceived, etaSeconds)}</b><br />

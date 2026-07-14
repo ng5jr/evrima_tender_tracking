@@ -232,6 +232,24 @@ body {
   text-align: center;
 }
 
+.custom-notification .notification-content {
+  width: 100%;
+}
+
+.custom-notification .notification-time,
+.custom-notification .notification-message,
+.custom-notification .notification-eta {
+  color: #ffffff;
+  text-align: center;
+}
+
+.custom-notification .notification-message {
+  justify-content: center;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
 .blinking-notification {
   animation: blinker 1s linear 2;
   /* Blink 3 times */

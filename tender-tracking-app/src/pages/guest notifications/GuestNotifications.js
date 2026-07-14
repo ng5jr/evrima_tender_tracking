@@ -226,7 +226,7 @@ function GuestNotifications() {
     return {
       message: notification.message || "",
       icon: null,
-      eta: arrivalTime ? `Estimated Time of Arrival ${arrivalTime}` : "",
+      eta: "",
     };
   };
 
@@ -354,12 +354,14 @@ function GuestNotifications() {
               notification,
               arrivalTime,
             );
+            const notificationTypeClass =
+              getNotificationLocationClass(notification);
             const tenderNumber = getTenderNumber(notification.tender);
 
             return (
               <li
                 key={notification.id}
-                className={`notification-item ${getNotificationLocationClass(notification)} ${
+                className={`notification-item ${notificationTypeClass} ${
                   notification.id === latestNotificationId
                     ? "blinking-notification"
                     : ""
@@ -377,14 +379,14 @@ function GuestNotifications() {
                     <p className="notification-eta">
                       {notificationDetails.eta}
                     </p>
-                  ) : (
-                    <p className="notification-eta"></p>
-                  )}
+                  ) : null}
                 </div>
-                <div className="tender">
-                  Tender
-                  <span className="tender-number">{tenderNumber}</span>
-                </div>
+                {notificationTypeClass !== "custom-notification" ? (
+                  <div className="tender">
+                    Tender
+                    <span className="tender-number">{tenderNumber}</span>
+                  </div>
+                ) : null}
               </li>
             );
           })}

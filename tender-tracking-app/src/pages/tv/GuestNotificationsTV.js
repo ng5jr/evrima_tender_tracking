@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { db } from "../../firebaseconfig";
-import { collection, query, orderBy, onSnapshot, doc, limit, where } from "firebase/firestore";
+import { collection, query, onSnapshot, doc, where } from "firebase/firestore";
 import notificationSound from "../../assets/notification.mp3";
 
 import "./GuestNotificationsTV.css";
@@ -134,25 +134,30 @@ function GuestNotificationsTV() {
 
                 if (activePortDayDoc) {
                     setPortName(activePortDayDoc.data().name || "");
-                    setAvgTime(activePortDayDoc.data().avgTime || 0);
+                    setAvgTime(Number.parseFloat(activePortDayDoc.data().avgTime) || 0);
                     setLastTender(activePortDayDoc.data().lastTenderTime || "TBA");
                     // Unsubscribe from previous notifications listener if any
                     if (unsubscribeNotifications) unsubscribeNotifications();
 
                     const notificationsQuery = query(
                         collection(db, "guestNotifications"),
-                        where("portDayId", "==", activePortDayDoc.id),
-                        orderBy("timestamp", "desc"),
-                        limit(10)
+                        where("portDayId", "==", activePortDayDoc.id)
                     );
 
                     unsubscribeNotifications = onSnapshot(
                         notificationsQuery,
                         (querySnapshot) => {
-                            const notificationsData = querySnapshot.docs.map((doc) => ({
-                                id: doc.id,
-                                ...doc.data(),
-                            }));
+                            const notificationsData = querySnapshot.docs
+                                .map((doc) => ({ id: doc.id, ...doc.data() }))
+                                .sort((a, b) => {
+                                    const getSortTime = (item) => {
+                                        const value = item.timestampSort || item.timestamp;
+                                        if (typeof value?.toMillis === "function") return value.toMillis();
+                                        return formatNotificationDate(value)?.getTime() || 0;
+                                    };
+                                    return getSortTime(b) - getSortTime(a);
+                                })
+                                .slice(0, 10);
                             setNotifications(notificationsData);
                             console.log("Notifications data:", notificationsData);
 
@@ -232,19 +237,11 @@ function GuestNotificationsTV() {
     };
 
     const getNotificationLocationClass = (notification) => {
-        const { action, direction } = notification;
+        const direction = String(notification.direction || "").toUpperCase();
+        const normalizedMessage = String(notification.message || "").toLowerCase();
 
-        if (action === "ARRIVED") {
-            return direction === "SHIPSIDE"
-                ? "shipside-notification"
-                : "shoreside-notification";
-        }
-
-        if (action === "DEPARTED") {
-            return direction === "SHIPSIDE"
-                ? "shoreside-notification"
-                : "shipside-notification";
-        }
+        if (normalizedMessage.includes("evrima")) return "shipside-notification";
+        if (normalizedMessage.includes("pier")) return "shoreside-notification";
 
         return direction === "SHIPSIDE"
             ? "shipside-notification"
@@ -256,12 +253,18 @@ function GuestNotificationsTV() {
     const formatNotificationDate = (timestamp) => {
         if (!timestamp) return null;
 
-        const dateObj =
-            typeof timestamp.toDate === "function"
-                ? timestamp.toDate()
-                : new Date(timestamp);
+        if (typeof timestamp.toDate === "function") return timestamp.toDate();
+        if (typeof timestamp === "string") {
+            const match = timestamp.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:,)?\s+(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+            if (match) {
+                const [, day, month, year, hour, minute, second = "0"] = match;
+                const parsed = new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second));
+                return isNaN(parsed.getTime()) ? null : parsed;
+            }
+        }
+        const dateObj = new Date(timestamp);
 
-        return !isNaN(dateObj) ? dateObj : null;
+        return !isNaN(dateObj.getTime()) ? dateObj : null;
     };
 
     const formatDisplayTime = (dateObj) =>
@@ -272,16 +275,32 @@ function GuestNotificationsTV() {
         });
 
     const getTenderNumber = (tender) => {
-        const tenderMatch = String(tender || "").match(/\d+/);
-        return tenderMatch ? tenderMatch[0] : tender || "";
+        const tenderLabel = String(tender || "").trim();
+        const tenderMatch = tenderLabel.match(/\d+/);
+        if (!tenderMatch) return tenderLabel;
+        return /^local tender\b/i.test(tenderLabel)
+            ? `L${tenderMatch[0]}`
+            : tenderMatch[0];
     };
 
     const getNotificationDetails = (notification, arrivalTime) => {
         const vesselName = "Evrima";
-        const direction = notification.direction;
-        const action = notification.action;
-        const arrivedLocation = direction === "SHIPSIDE" ? vesselName : "pier";
-        const departedLocation = direction === "SHIPSIDE" ? "pier" : vesselName;
+        const direction = String(notification.direction || "").toUpperCase();
+        const storedMessage = String(notification.message || "");
+        const normalizedMessage = storedMessage.toLowerCase();
+        const actionFromMessage = normalizedMessage.includes("departed")
+            ? "DEPARTED"
+            : normalizedMessage.includes("arrived")
+                ? "ARRIVED"
+                : "";
+        const action = String(actionFromMessage || notification.action || "").toUpperCase();
+        const locationFromMessage = normalizedMessage.includes(vesselName.toLowerCase())
+            ? vesselName
+            : normalizedMessage.includes("pier")
+                ? "pier"
+                : "";
+        const arrivedLocation = locationFromMessage || (direction === "SHIPSIDE" ? vesselName : "pier");
+        const departedLocation = locationFromMessage || (direction === "SHIPSIDE" ? "pier" : vesselName);
         const arrivedIcon = direction === "SHIPSIDE" ? "arrivedShip" : "arrivedPier";
         const departedIcon = direction === "SHIPSIDE" ? "departedPier" : "departedShip";
 
@@ -302,7 +321,7 @@ function GuestNotificationsTV() {
         }
 
         return {
-            message: notification.message || "",
+            message: storedMessage,
             icon: null,
             eta: arrivalTime ? `Estimated Time of Arrival ${arrivalTime}` : "",
         };
